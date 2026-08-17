@@ -498,6 +498,34 @@ mod tests {
         );
     }
 
+    #[test]
+    fn test_should_not_panic_when_renaming_nullable_map_with_title() {
+        // Regression test: a titled oneOf/[null, X] where X resolves to a model type that
+        // cannot carry its own name (e.g. a MapType/AnyType) must not panic in Model::rename.
+        let schema = json!({
+            "title": "NullableExtra",
+            "oneOf": [
+                {"type": "null"},
+                {"type": "object", "additionalProperties": {"type": "string"}}
+            ]
+        });
+        let mut container = ModelContainer::default();
+        let mut scope = SchemaScope::default();
+        let resolver = SchemaResolver::empty();
+        let options = JsonSchemaExtractOptions::default();
+
+        scope.entity("TestName");
+        let result = from_one_or_any_of(
+            schema.as_object().unwrap(),
+            &mut container,
+            &mut scope,
+            &resolver,
+            &options,
+        );
+
+        assert!(result.is_ok());
+    }
+
     // anyOf
     #[test]
     fn test_should_add_additional_info_about_discriminator_externally_tagged_for_any_of() {
