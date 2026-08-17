@@ -4,6 +4,9 @@ use std::sync::Arc;
 
 use cruet::Inflector;
 use tera::{Kwargs, State, Tera, TeraResult, Value};
+use tera_contrib::{
+    base64, dates, filesize_format, format, json, rand, regex as tc_regex, slug, urlencode,
+};
 
 pub mod bucket_counter {
     use std::{
@@ -92,6 +95,34 @@ pub fn register(tera: &mut Tera) {
         bucket_counter::get_bucket_count(counter.clone()),
     );
     tera.register_function("clear_bucket", bucket_counter::clear_bucket(counter));
+
+    // tera-contrib
+    tera.register_filter("b64_decode", base64::b64_decode);
+    tera.register_filter("b64_encode", base64::b64_encode);
+
+    tera.register_function("now", dates::now);
+    tera.register_filter("date", dates::date);
+    tera.register_test("is_before", dates::is_before);
+    tera.register_test("is_after", dates::is_after);
+
+    tera.register_filter("filesize_format", filesize_format::filesize_format);
+
+    tera.register_filter("format", format::format);
+
+    tera.register_filter("json_encode", json::json_encode);
+
+    tera.register_function("get_random", rand::get_random);
+    tera.register_filter("shuffle", rand::shuffle);
+
+    tera.register_filter("spaceless", tc_regex::spaceless);
+    tera.register_filter("striptags", tc_regex::striptags);
+    tera.register_test("matching", tc_regex::Matching::default());
+    tera.register_filter("regex_replace", tc_regex::RegexReplace::default());
+
+    tera.register_filter("slug", slug::slug);
+
+    tera.register_filter("urlencode", urlencode::urlencode);
+    tera.register_filter("urlencode_strict", urlencode::urlencode_strict);
 }
 
 pub fn pascalcase(value: &str, _: Kwargs, _: &State) -> TeraResult<String> {

@@ -311,7 +311,7 @@ Only `options` is available. The template content itself can still access custom
 
 Filters are registered in `filters.rs`:
 
-```@crates/schematools/src/codegen/filters.rs:68-100```
+```@crates/schematools/src/codegen/filters.rs:71-126```
 
 | Filter | Example | Description |
 |---|---|---|
@@ -337,6 +337,36 @@ Functions:
 
 - `get_bucket_count(bucket="...", name="...")` — returns null the first time a name is seen, then `2`, `3`, … per bucket.
 - `clear_bucket(bucket="...")` — resets a bucket.
+
+### 8.1 `tera-contrib` filters, functions and tests
+
+The [`tera-contrib`](https://docs.rs/tera-contrib) crate provides a set of additional filters/functions/tests, registered under the same names used in its own documentation:
+
+| Filter | Example | Description |
+|---|---|---|
+| `b64_decode` | `{{ value \| b64_decode }}` | decodes a base64 string |
+| `b64_encode` | `{{ value \| b64_encode(url_safe=true, padded=false) }}` | encodes a string to base64 |
+| `date` | `{{ value \| date(format="%Y-%m-%d", timezone="Europe/Paris") }}` | formats a date/datetime value |
+| `filesize_format` | `{{ bytes \| filesize_format }}` | human-readable file size (binary units by default) |
+| `format` | `{{ value \| format(fmt="{:.2}") }}` | formats a value using Rust's `std::fmt` specifiers |
+| `json_encode` | `{{ value \| json_encode(pretty=true) }}` | encodes a value as JSON |
+| `shuffle` | `{{ list \| shuffle }}` | shuffles a list (optional seed) |
+| `spaceless` | `{{ value \| spaceless }}` | removes whitespace between HTML tags |
+| `striptags` | `{{ value \| striptags }}` | strips HTML tags |
+| `regex_replace` | `{{ value \| regex_replace(pattern="\\d+", rep="") }}` | regex-based replace |
+| `slug` | `{{ value \| slug }}` | slugifies a string |
+| `urlencode` | `{{ value \| urlencode }}` | percent-encodes reserved URI characters (matches Python's `urllib.parse.quote`) |
+| `urlencode_strict` | `{{ value \| urlencode_strict }}` | percent-encodes all non-alphanumeric characters |
+
+Functions:
+
+- `now(timezone="...")` — returns the current datetime (defaults to UTC).
+- `get_random(start=1, end=100, seed=...)` — returns a random integer in `[start, end)`.
+
+Tests:
+
+- `{% if date is is_before(other="2024-06-01") %}` / `{% if date is is_after(other=other_date, inclusive=true) %}` — date comparisons.
+- `{% if value is matching(pat="^hello") %}` — regex match test.
 
 ## 9. Template file name placeholders
 
