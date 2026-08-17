@@ -1,3 +1,9 @@
+## v1.0.3 (2026-08-17)
+
+### Fix
+
+- enable tera-contrib filters and functions
+
 ## v1.0.2 (2026-08-07)
 
 ### Fix
