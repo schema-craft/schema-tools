@@ -407,7 +407,13 @@ impl Model {
                 p.name = Some(name);
                 ModelType::ArrayType(p)
             }
-            _ => panic!("Unsupported rename: {name}"),
+            ModelType::MapType(mut p) => {
+                p.name = Some(name);
+                ModelType::MapType(p)
+            }
+            // AnyType (and any future variant without a name field) cannot carry a
+            // name/title, so leave it untouched instead of panicking.
+            other => other,
         });
         result.attributes = self.attributes;
         result.spaces = self.spaces;
