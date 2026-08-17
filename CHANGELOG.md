@@ -1,3 +1,9 @@
+## v1.0.4 (2026-08-17)
+
+### Fix
+
+- don't panic when renaming nullable map/any models with title
+
 ## v1.0.3 (2026-08-17)
 
 ### Fix
