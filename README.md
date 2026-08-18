@@ -377,4 +377,21 @@ schematools chain -vv \
   -c "codegen openapi - --optional-and-nullable-as-models --template default::rust-reqwest-http/ --format 'rustfmt --edition 2018' \
     -o 'usedEndpoints=~[\"usersListV3\",\"usersCreateV3\"]' \
     --target-dir src/clients/ -o name=UsersClient"
+
+# Docker images
+
+Pre-built Docker images are available for `linux/amd64` and `linux/arm64` on GitHub Container Registry:
+
+```bash
+docker pull ghcr.io/schema-craft/schema-tools:latest
+```
+
+You can run the tool directly:
+
+```bash
+docker run --rm ghcr.io/schema-craft/schema-tools:latest --help
+```
+
+All available versions and tags can be found here:
+https://github.com/schema-craft/schema-tools/pkgs/container/schema-tools
 ```
