@@ -7,51 +7,37 @@ on:
 name: build
 
 jobs:
-  build_unix:
-    name: Build for unix
-    runs-on: ubuntu-latest
+  build:
+    name: Build for ${{ matrix.config.short }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - os: ubuntu-24.04
+            target: x86_64-unknown-linux-gnu
+            short: linux-amd64
+          - os: ubuntu-24.04-arm
+            target: aarch64-unknown-linux-gnu
+            short: linux-arm64
+          - os: macos-26-intel
+            target: x86_64-apple-darwin
+            short: darwin-amd64
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            short: windows-amd64
+          - os: windows-11-arm
+            target: aarch64-pc-windows-msvc
+            short: windows-arm64
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            short: darwin-arm64
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
-      - run: cargo build --release
-
-  build_macos_arm:
-    name: Build for macos (arm)
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: aarch64-apple-darwin
+          target: ${{ matrix.config.target }}
           default: true
           override: true
-      - run: cargo build --release
-
-  build_macos:
-    name: Build for macos
-    runs-on: macos-26-intel
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: x86_64-apple-darwin
-          default: true
-          override: true
-      - run: cargo build --release
-
-  build_windows:
-    name: Build for windows
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          target: x86_64-pc-windows-msvc
-          default: true
-          override: true
-      - run: cargo build --release
+      - run: cargo build --release --target ${{ matrix.config.target }}
