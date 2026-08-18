@@ -271,7 +271,7 @@ mod tests {
         let mut discovery = Discovery::default();
 
         let registry = discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Rev("a279f3b54bc7b03af83162fbf027eb781db1e046".to_string()),
             false,
         )
@@ -301,7 +301,7 @@ mod tests {
         let mut discovery = Discovery::default();
 
         let registry = discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Rev("a279f3b54bc7b03af83162fbf027eb781db1e046".to_string()),
             false,
         )
@@ -328,7 +328,7 @@ mod tests {
         let mut discovery = Discovery::default();
 
         let registry = discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Rev("a279f3b54bc7b03af83162fbf027eb781db1e046".to_string()),
             false,
         )
@@ -366,7 +366,7 @@ mod tests {
     #[serial]
     fn test_discover_git_hash() {
         let registry = discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Rev("a279f3b54bc7b03af83162fbf027eb781db1e046".to_string()),
             false,
         )
@@ -381,7 +381,7 @@ mod tests {
     #[test]
     fn test_discover_git_branch() {
         let registry = discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Branch("bugfix/title-conflict".to_string()),
             false,
         )
@@ -421,7 +421,7 @@ test-case = "1""#;
     #[test]
     fn test_discover_git_tag() {
         let registry = discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Tag("v0.0.1".to_string()),
             false,
         )
@@ -459,13 +459,13 @@ test-case = "1""#;
         testing_logger::setup();
 
         discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Tag("v0.0.2".to_string()),
             true,
         )
         .unwrap();
         discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Tag("v0.0.2".to_string()),
             false,
         )
@@ -483,13 +483,13 @@ test-case = "1""#;
         testing_logger::setup();
 
         discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Tag("v0.0.3".to_string()),
             true,
         )
         .unwrap();
         discover_git(
-            "https://github.com/kstasik/schema-tools.git",
+            "https://github.com/schema-craft/schema-tools.git",
             GitCheckoutType::Tag("v0.0.3".to_string()),
             true,
         )

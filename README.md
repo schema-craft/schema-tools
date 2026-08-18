@@ -1,7 +1,7 @@
 # Schema Tools
 
-[![build](https://github.com/kstasik/schema-tools/workflows/build/badge.svg)](https://github.com/kstasik/schema-tools/actions)
-[![tests](https://github.com/kstasik/schema-tools/workflows/test/badge.svg)](https://github.com/kstasik/schema-tools/actions)
+[![build](https://github.com/schema-craft/schema-tools/workflows/build/badge.svg)](https://github.com/schema-craft/schema-tools/actions)
+[![tests](https://github.com/schema-craft/schema-tools/workflows/test/badge.svg)](https://github.com/schema-craft/schema-tools/actions)
 [![crates-cli](https://img.shields.io/crates/v/schematools-cli)](https://crates.io/crates/schematools-cli)
 [![crates-lib](https://img.shields.io/crates/v/schematools)](https://crates.io/crates/schematools)
 
@@ -46,8 +46,8 @@ cargo install schematools-cli@0.21.0
 ## json-schema struct codegen
 
 ```
-schematools-cli chain -vvv -c 'registry add templates https://github.com/kstasik/schema-tools-templates --rev 411f5207001637c19380046a21991b9ddba2bfe9' \
-   -c 'process dereference https://raw.githubusercontent.com/kstasik/schema-tools/refs/heads/master/crates/schematools/resources/test/json-schemas/01-simple.json --skip-root-internal-references --create-internal-references' \
+schematools-cli chain -vvv -c 'registry add templates https://github.com/schema-craft/schema-tools-templates --rev 411f5207001637c19380046a21991b9ddba2bfe9' \
+   -c 'process dereference https://raw.githubusercontent.com/schema-craft/schema-tools/refs/heads/master/crates/schematools/resources/test/json-schemas/01-simple.json --skip-root-internal-references --create-internal-references' \
    -c 'process merge-all-of - --leave-invalid-properties' \
    -c 'codegen json-schema - --base-name Person --template templates::rust/_common/ --template templates::rust/model/ --format "rustfmt --edition 2021" --target-dir schemas/ -o namespace=people -o skipValidate=~true'
 ```
@@ -56,8 +56,8 @@ schematools-cli chain -vvv -c 'registry add templates https://github.com/kstasik
 
 ```
 schematools-cli \
-   chain -vvv -c 'registry add templates https://github.com/kstasik/schema-tools-templates --rev 411f5207001637c19380046a21991b9ddba2bfe9' \
-   -c 'process dereference https://raw.githubusercontent.com/kstasik/schema-tools/refs/heads/master/crates/schematools/resources/test/openapi/01-simple.yaml --skip-root-internal-references --create-internal-references' \
+   chain -vvv -c 'registry add templates https://github.com/schema-craft/schema-tools-templates --rev 411f5207001637c19380046a21991b9ddba2bfe9' \
+   -c 'process dereference https://raw.githubusercontent.com/schema-craft/schema-tools/refs/heads/master/crates/schematools/resources/test/openapi/01-simple.yaml --skip-root-internal-references --create-internal-references' \
    -c 'process merge-all-of - --leave-invalid-properties' \
    -c 'codegen openapi - --template templates::rust/_common/ --template templates::rust/client/ --format "rustfmt --edition 2021" --target-dir src/clients/ -o apm=tracing -o name=simple -o namespace=simple -o skipValidate=~true'
 ```
@@ -250,7 +250,7 @@ Example of endpoints.j2:
 - `filename=?` - target filepath to create. May be mixed with options, ex. `filename=clients/%options.name%/endpoints.go`
 - `if=foo:bar` - condition when to use template file. Should be mixed with options ex. `if=%options.type%:server`
 
-For more information how to write template files please refer to [Tera docs](https://keats.github.io/tera/). To get list of additional filters we created please visit [filters.rs](https://github.com/kstasik/schema-tools/blob/master/crates/schematools/src/codegen/filters.rs).
+For more information how to write template files please refer to [Tera docs](https://keats.github.io/tera/). To get list of additional filters we created please visit [filters.rs](https://github.com/schema-craft/schema-tools/blob/master/crates/schematools/src/codegen/filters.rs).
 
 ### Codegen template inheritance
 
@@ -322,7 +322,7 @@ There is an option to treat a separate git repository as source of templates:
 
 ```
 schematools chain -vvvv \
-   -c 'registry add common git://github.com/kstasik/schema-tools --tag v0.0.1' \
+   -c 'registry add common git://github.com/schema-craft/schema-tools --tag v0.0.1' \
    -c 'process merge-all-of --leave-invalid-properties clients/client1.yaml' \
    -c 'process name - --resource-method-version --overwrite' \
    -c 'validate openapi - --continue-on-error' \

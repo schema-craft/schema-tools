@@ -7,7 +7,7 @@ members = [
 
 [workspace.package]
 license = "MIT"
-repository = "https://github.com/kstasik/schema-tools"
+repository = "https://github.com/schema-craft/schema-tools"
 version = "1.0.4"
 
 [workspace.dependencies]
