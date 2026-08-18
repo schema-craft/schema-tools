@@ -1,3 +1,9 @@
+## v1.0.5 (2026-08-18)
+
+### Fix
+
+- commitizen now supports cargo version provider
+
 ## v1.0.4 (2026-08-17)
 
 ### Fix
