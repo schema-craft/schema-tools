@@ -34,10 +34,7 @@ jobs:
             short: darwin-arm64
     steps:
       - uses: actions/checkout@v4
-      - uses: actions-rs/toolchain@v1
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: stable
-          target: ${{ matrix.config.target }}
-          default: true
-          override: true
+          targets: ${{ matrix.config.target }}
       - run: cargo build --release --target ${{ matrix.config.target }}
