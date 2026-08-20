@@ -1,3 +1,9 @@
+## v1.0.6 (2026-08-20)
+
+### Fix
+
+- **codegen**: make generated model names independent of component order
+
 ## v1.0.5 (2026-08-18)
 
 ### Fix
