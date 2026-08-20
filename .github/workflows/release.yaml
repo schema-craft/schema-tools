@@ -122,10 +122,10 @@ jobs:
           merge-multiple: true
           path: ./dist
 
-      - name: Rename binaries for Docker context
+      - name: Copy binaries to Docker context root
         run: |
-          mv ./dist/schematools-linux-amd64 ./dist/schematools-cli-amd64
-          mv ./dist/schematools-linux-arm64 ./dist/schematools-cli-arm64
+          cp ./dist/schematools-linux-amd64 ./schematools-cli-amd64
+          cp ./dist/schematools-linux-arm64 ./schematools-cli-arm64
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
