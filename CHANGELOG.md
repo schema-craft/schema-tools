@@ -1,3 +1,9 @@
+## v1.0.7 (2026-08-20)
+
+### Fix
+
+- repair workflow permissions and deprecated actions
+
 ## v1.0.6 (2026-08-20)
 
 ### Fix
