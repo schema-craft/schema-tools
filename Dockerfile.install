@@ -2,17 +2,28 @@
 
 ARG VERSION
 
-FROM rust:slim
+FROM rust:slim AS builder
 ARG VERSION
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    cmake \
-    pkg-config \
-    libssl-dev \
-    ca-certificates \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        cmake \
+        pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 RUN cargo install schematools-cli@${VERSION}
 
-ENTRYPOINT ["schematools-cli"]
+FROM rust:slim
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        ca-certificates \
+        git \
+        make \
+    && rm -rf /var/lib/apt/lists/* \
+    && rustup component add rustfmt
+
+COPY --from=builder /usr/local/cargo/bin/schematools-cli /usr/local/bin/schematools-cli
+
+ENTRYPOINT ["/usr/local/bin/schematools-cli"]
 CMD ["--help"]
