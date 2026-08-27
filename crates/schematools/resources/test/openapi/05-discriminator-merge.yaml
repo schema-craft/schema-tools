@@ -1,0 +1,43 @@
+openapi: 3.0.0
+info:
+  version: 0.1.0
+  title: Discriminator Merge Test
+components:
+  schemas:
+    kindDiscriminator:
+      oneOf:
+        - $ref: '#/components/schemas/KindDiscriminatorSimple'
+        - $ref: '#/components/schemas/KindDiscriminatorComplex'
+        - $ref: '#/components/schemas/KindDiscriminatorSemi'
+      discriminator:
+        propertyName: testField
+        mapping:
+          simple: '#/components/schemas/KindDiscriminatorSimple'
+          complex: '#/components/schemas/KindDiscriminatorComplex'
+          semi: '#/components/schemas/KindDiscriminatorSemi'
+    KindDiscriminatorSimple:
+      type: object
+      required: ['name', 'testField']
+      additionalProperties: false
+      properties:
+        testField:
+          type: string
+        name:
+          type: string
+    KindDiscriminatorComplex:
+      type: object
+      required: ['name', 'testField']
+      additionalProperties: false
+      properties:
+        testField:
+          type: string
+        name:
+          type: string
+    KindDiscriminatorSemi:
+      type: object
+      required: ['testField']
+      additionalProperties: false
+      properties:
+        testField:
+          type: string
+paths: {}

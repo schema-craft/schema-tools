@@ -265,6 +265,12 @@ impl Extractor for Discriminator {
                     _ => None,
                 };
 
+                // The schema hash was computed from the original referenced
+                // schema, but the variant has been mutated (discriminator field
+                // removed). Clear it so that --merge-similar-models does not
+                // merge the modified variant back with the original model.
+                m.attributes.schema_hash = None;
+
                 m.flatten(container, scope).map(|mut f| {
                     f.attributes.x.insert(
                         DISCRIMINATOR_META.to_owned(),

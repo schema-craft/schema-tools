@@ -1496,4 +1496,45 @@ mod tests {
             "NullablePriceType property should keep nullable=true"
         );
     }
+
+    #[test]
+    fn test_discriminator_variants_do_not_require_tag_field_with_merge_similar_models() {
+        let url = Url::parse(&format!(
+            "file://{}/resources/test/openapi/05-discriminator-merge.yaml",
+            env!("CARGO_MANIFEST_DIR")
+        ))
+        .unwrap();
+        let schema = Schema::load_url(url).unwrap();
+
+        let client = Client::new();
+        let storage = SchemaStorage::new(&schema, &client);
+
+        let openapi = super::extract(
+            &schema,
+            &storage,
+            OpenapiExtractOptions {
+                merge_similar_models: true,
+                ..Default::default()
+            },
+        )
+        .unwrap();
+
+        let value = serde_json::to_value(&openapi).unwrap();
+        let models = value["models"]["models"].as_array().unwrap();
+
+        for model in models {
+            if let Some(name) = model["object"]["name"].as_str() {
+                if name.ends_with("Variant") {
+                    for prop in model["object"]["properties"].as_array().unwrap_or(&vec![]) {
+                        assert_ne!(
+                            prop["name"].as_str(),
+                            Some("testField"),
+                            "variant {} should not contain testField",
+                            name
+                        );
+                    }
+                }
+            }
+        }
+    }
 }
