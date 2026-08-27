@@ -2943,7 +2943,7 @@ dependencies = [
 
 [[package]]
 name = "schematools"
-version = "1.0.7"
+version = "1.0.8"
 dependencies = [
  "cruet",
  "digest 0.11.3",
@@ -2972,7 +2972,7 @@ dependencies = [
 
 [[package]]
 name = "schematools-cli"
-version = "1.0.7"
+version = "1.0.8"
 dependencies = [
  "clap",
  "env_logger",
