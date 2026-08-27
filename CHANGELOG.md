@@ -1,3 +1,10 @@
+## v1.0.8 (2026-08-27)
+
+### Fix
+
+- **codegen**: prevent discriminator variant merging with original model
+- clippy nightly warning for pluralize function
+
 ## v1.0.7 (2026-08-20)
 
 ### Fix
