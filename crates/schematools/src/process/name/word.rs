@@ -83,11 +83,7 @@ pub fn singularize(word: String) -> String {
 pub fn is_plural(word: String) -> bool {
     let plural_form = pluralize(word.clone());
 
-    if plural_form == word {
-        return true;
-    }
-
-    false
+    plural_form == word
 }
 
 pub fn pluralize(word: String) -> String {
