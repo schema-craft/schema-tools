@@ -64,6 +64,9 @@ pub enum Error {
     #[error("Openapi schema format is invalid")]
     InvalidOpenapiSchemaError,
 
+    #[error("Openapi version {0} is not supported")]
+    UnsupportedOpenapiVersion(String),
+
     #[error("Cannot parse semversion: {0}")]
     #[cfg(feature = "semver")]
     SemVersion(semver::Error),
