@@ -137,12 +137,10 @@ fn process_ref(
                     process_node(&mut s, options, ctx, resolver);
 
                     if let Some(result) = s.as_object_mut() {
-                        for (key, value) in root.as_object().unwrap() {
-                            if key == "$ref" {
-                                continue;
+                        for key in ["description", "summary"] {
+                            if let Some(value) = root.as_object().and_then(|o| o.get(key)) {
+                                result.insert(key.to_string(), value.clone());
                             }
-
-                            result.insert(key.clone(), value.clone());
                         }
                     }
 

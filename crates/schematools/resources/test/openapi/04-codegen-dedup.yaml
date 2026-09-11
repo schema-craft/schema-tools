@@ -9,6 +9,7 @@ components:
     pathId:
       name: id
       in: path
+      required: true
       description: Resource id
       schema:
         type: string
