@@ -1,3 +1,14 @@
+## v1.1.0 (2026-09-16)
+
+### Feat
+
+- **validate**: support per-version OpenAPI and JSON Schema draft detection
+
+### Fix
+
+- **codegen**: prevent discriminator variant merging with original model
+- clippy nightly warning for pluralize function
+
 ## v1.0.8 (2026-08-27)
 
 ### Fix
